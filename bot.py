@@ -6,6 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from dotenv import load_dotenv
 from script import bot,run_flask, run_bot, BOTS_JSON_URL
 from common_data import status_user_file, StatusFilter, get_bot_username, BASE_PATH, BOT_TOKEN
+from save_file_to_alt_github import save_json_to_alt_github
 BOT_DATA_URL = "https://botdata123.singodiya.tech/all_registered_bot.json"
 logging.basicConfig(
     level=logging.INFO,
@@ -665,6 +666,10 @@ async def sell_plan_callback(client, query):
     # 💾 Save File
     with open(user_plan_file, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2)
+    git_plan_file= f"BOT_DATA/{user_id}/user_plans.json"
+    local_json_path = user_plan_file
+    github_path = git_plan_file
+    save_json_to_alt_github(local_json_path, github_path)
 
     # ✅ User को Plan Activated Message भेजना
     confirm_text = (
@@ -745,6 +750,10 @@ async def cancel_plan_callback(client, query):
     # 💾 Save after removal + summary update
     with open(user_plan_file, "w", encoding="utf-8") as f:
         json.dump(plan_data, f, indent=2)
+    git_plan_file= f"BOT_DATA/{user_id}/user_plans.json"
+    local_json_path = user_plan_file
+    github_path = git_plan_file
+    save_json_to_alt_github(local_json_path, github_path)
 
     # 🗑️ User को भेजा गया Activated Message Delete करें
     try:
