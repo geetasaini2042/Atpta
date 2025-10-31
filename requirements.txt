@@ -6,3 +6,4 @@ pytz
 flask_cors
 Werkzeug>=2.0,<3.0
 requests
+aiohttp
